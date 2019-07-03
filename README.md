@@ -6,4 +6,4 @@ add one of these commands in command line
 -n infile outfile (Add salt-pepper noise)
 
 infile + outfile without .pgm ending!
-
+ 
