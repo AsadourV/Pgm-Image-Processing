@@ -1,9 +1,9 @@
 add one of these commands in command line
--fV infile outfile (Vertical Flip of image)
--fH infile outfile (Horizontal Flip of image)
--rRn infile outfile (Rotation Right n*90 degrees)
--rLn infile outfile (Rotation Left n*90 degrees)
--n infile outfile (Add salt-pepper noise)
+-fV input_file_name output_file_name (Vertical Flip of image)
+-fH input_file_name output_file_name (Horizontal Flip of image)
+-rRn input_file_name output_file_name (Rotation Right n*90 degrees),n: an integer
+-rLn input_file_name output_file_name (Rotation Left n*90 degrees),n: an integer
+-n input_file_name output_file_name (to add salt-pepper noise)
 
-infile + outfile without .pgm ending!
+Attention!!!::  input_file_name + output_file_name without .pgm ending!
  
