@@ -60,7 +60,8 @@ char *strremove(char *str, const char *sub)
     if (len > 0) {
         char *p = str;
         size_t size = 0;
-        while ((p = strstr(p, sub)) != NULL) {
+        while ((p = strstr(p, sub)) != NULL) 
+	{
             size = (size == 0) ? (p - str) + strlen(p + len) + 1 : size - len;
             memmove(p, p + len, size - (p - str));
         }
@@ -249,7 +250,7 @@ char** img_to_2d_array(char* img)
 	char** imgplus = allocate_2d_img();
 	FILE* imageout = fopen("exampleout.pgm","wb+");
 	if(imageout == NULL)
-    {
+    	{
     	printf("Error in file !\n");
 		exit(0);		
 	}
@@ -355,8 +356,8 @@ PGMImage getImgInfo(char filename[])
 	}
 	tmp_file = fopen("temporary.pgm","wb+");
 	if(tmp_file == NULL)
-    {
-    	printf("Error in file !\n");
+    	{
+    		printf("Error in file !\n");
 		exit(0);		
 	}
 	
@@ -367,15 +368,12 @@ PGMImage getImgInfo(char filename[])
 	while(!feof(trav))
 	{
 		fgets (line, 1000, trav);
-		
-		
 		if(line_counter == 0)
 		{
 			line[strlen(line)-1] = '\0';
 			tmp.headline = (char*)malloc(sizeof(char)*strlen(line));
 			strcpy(tmp.headline,line);
 		}
-		
 		if(line_counter == 1)
 		{
 			if(line[0] == '#')
@@ -412,7 +410,7 @@ PGMImage getImgInfo(char filename[])
 				  	sscanf (token,"%d",&tmp.width);
 				  }
 			      token = strtok(NULL, " ");
-		    }
+		    	}
 
 		}
 		
@@ -461,8 +459,8 @@ void import_noise(char* img[])
 	int col_rand;
 	noise = fopen(strcat(output_name,"noise.pgm"),"wb+");
 	if(noise == NULL)
-    {
-    	printf("Error in file !\n");
+    	{
+    		printf("Error in file !\n");
 		exit(0);		
 	}
 	random_perc = rand()%9 + 1;
@@ -518,8 +516,8 @@ void horizontal_reflection(char* img1[ROW])
 	int i,j;
 	fp_H= fopen(strcat(output_name,"horizontal.pgm"),"wb+");
 	if(fp_H == NULL)
-    {
-    	printf("Error in file !\n");
+    	{
+    		printf("Error in file !\n");
 		exit(0);		
 	}
 	for(l = 0;l<ROW;l++)
@@ -529,8 +527,6 @@ void horizontal_reflection(char* img1[ROW])
 			temp = img1[l][r];
 			img1[l][r] = img1[l][COL-1-r];
 			img1[l][COL-1-r] = temp;
-			
-
 		}
 	}
 	
@@ -545,8 +541,7 @@ void horizontal_reflection(char* img1[ROW])
 	 	{
 
 	 		temp = img1[i][j];
-	 		fwrite(&temp, sizeof(char), 1, fp_H);
-	 		
+	 		fwrite(&temp, sizeof(char), 1, fp_H);	
 		 }
 		 
 	 }	
@@ -563,8 +558,8 @@ void vertical_reflection(char* img1[ROW])
 	int i,j;
 	fp_V = fopen(strcat(output_name,"vertical.pgm"),"wb+");
 	if(fp_V == NULL)
-    {
-    	printf("Error in file !\n");
+    	{
+    		printf("Error in file !\n");
 		exit(0);		
 	}
 	for(l = 0;l<COL;l++)
@@ -584,23 +579,16 @@ void vertical_reflection(char* img1[ROW])
 		fprintf(fp_V,"%s\n",image_info.headline);
 	fprintf(fp_V,"%d %d\n",image_info.height,image_info.width);
 	fprintf(fp_V,"%d\n",image_info.grayscale);
-	
-	
-	
 	for(i=0;i<ROW;i++)
 	 {
 	 	for(j=0;j<COL;j++)
 	 	{
-
 	 		temp = img1[i][j];
-	 		fwrite(&temp, sizeof(char), 1, fp_V);
-	 		
+	 		fwrite(&temp, sizeof(char), 1, fp_V);	
 		 }
 		 
 	 }	
-	 
 	 fclose(fp_V);
-	
 }
 
 
@@ -616,22 +604,18 @@ char** rotate_right(char* img[ROW])
 	
 	right_rot = fopen(strcat(name,"rightrot.pgm"),"wb+");
 	if(right_rot == NULL)
-    {
-    	printf("Error in file !\n");
+    	{
+    		printf("Error in file !\n");
 		exit(0);		
 	}
 	img_new = (char**)malloc(COL*sizeof(char*));
-	
 	for(i=0;i<ROW;i++)
 		img_new[i] = (char*)malloc(ROW*sizeof(char));
-	
 	for (i=0; i<COL; i++)
 	{
 		for (j=0;j<ROW; j++)
 		img_new[j][COL-1-i] = img[i][j];
 	}
-	
-	
 	fprintf(right_rot,"%s\n",image_info.headline);
 	if(strcmp(image_info.comments,"empty")!=0)
 		fprintf(right_rot,"%s\n",image_info.headline);
@@ -641,14 +625,11 @@ char** rotate_right(char* img[ROW])
 	 {
 	 	for(j=0;j<COL;j++)
 	 	{
-
 	 		temp = img_new[i][j];
-	 		fwrite(&temp, sizeof(char), 1, right_rot);
-	 		
+	 		fwrite(&temp, sizeof(char), 1, right_rot);	
 		 }
 		 
 	 }	
-	 
 	 fclose(right_rot);
 	 return img_new;
 }
@@ -662,6 +643,8 @@ char** rotate_right(char* img[ROW])
 
 void reverseColumns(char* arr[ROW]) 
 { 
+	
+	
 int i,j,k;
 char temp;
     for (i = 0; i < COL; i++) 
@@ -670,7 +653,7 @@ char temp;
         	temp = arr[j][i];
         	arr[j][i]= arr[k][i];
         	arr[k][i] = temp;
-		}
+	}
             
 } 
   
@@ -684,7 +667,7 @@ char temp;
         	temp = arr[i][j];
         	arr[i][j] = arr[j][i];
         	arr[j][i] = temp;
-		}
+	}
   
 } 
   
@@ -708,7 +691,7 @@ char** rotate_left(char* arr[ROW])
     {
     	printf("Error in file !\n");
 		exit(0);		
-	}
+    }
     fprintf(left_rot,"%s\n",image_info.headline);
 	if(strcmp(image_info.comments,"empty")!=0)
 		fprintf(left_rot,"%s\n",image_info.headline);
@@ -716,17 +699,14 @@ char** rotate_left(char* arr[ROW])
 	fprintf(left_rot,"%d\n",image_info.grayscale);
    
     for(i=0;i<ROW;i++)
-	 {
+    {
 	 	for(j=0;j<COL;j++)
 	 	{
-
 	 		temp = arr[i][j];
 	 		fwrite(&temp, sizeof(char), 1, left_rot);
-	 		
-		 }
+		}
 		 
-	 }
-	 
+    }
 	 fclose(left_rot);	
 	 return arr;
 } 
