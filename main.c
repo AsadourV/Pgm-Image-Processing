@@ -90,8 +90,6 @@ int main(int argc, char* argv[])
 	{
 		output_name = allocate_1d_arr(strlen(argv[3]));
 		strcpy(output_name,argv[3]);
-		
-		
 		printf("Command : %s\n",argv[1]);
 		if(strcmp(argv[1],"-fH")==0)
 		{
@@ -111,7 +109,6 @@ int main(int argc, char* argv[])
 			 	printf("\n");
 			 }
 			 horizontal_reflection(imgplus);
-			 
 		}
 		else if(strcmp(argv[1],"-fV")==0)
 		{
@@ -135,20 +132,17 @@ int main(int argc, char* argv[])
 	 		{
 	 		 img = 	img_to_1d_array("temporary.pgm");
 			 imgplus = img_to_2d_array(img);
-			 
-			 
-			 
-			   char *ptr;
-			   ptr = strremove(argv[1],"-rR");
-			   int times = atoi(ptr);
+			 char *ptr;
+			 ptr = strremove(argv[1],"-rR");
+			 int times = atoi(ptr);
 			   
-				for(i=0;i<times;i++)
-			 		imgplus = rotate_right(imgplus) ;
-			}
-			else
-			{
+			for(i=0;i<times;i++)
+			 	imgplus = rotate_right(imgplus) ;
+		}
+		else
+		{
 				printf("Image must be quadratic\n");
-			}
+		}
 			
 		}
 		else if(strncmp(argv[1],"-rL",3)==0 && valid_command(argv[1]) == 1)
@@ -160,16 +154,15 @@ int main(int argc, char* argv[])
 	 		COL = image_info.height;
 	 		if(ROW == COL)
 	 		{
-	 			img = 	img_to_1d_array("temporary.pgm");
-				imgplus = img_to_2d_array(img);
-				char *ptr;
-			   	int times;
-			   	ptr = strremove(argv[1],"-rL");
-			    times = atoi(ptr);
-			    puts(ptr);
+	 		   img = img_to_1d_array("temporary.pgm");
+			   imgplus = img_to_2d_array(img);
+			   char *ptr;
+			   int times;
+			   ptr = strremove(argv[1],"-rL");
+			   times = atoi(ptr);
+			   puts(ptr);
 				for(i=0;i<times;i++)
 			 		imgplus = rotate_left(imgplus);
-				
 			}
 			else
 			{
@@ -184,7 +177,7 @@ int main(int argc, char* argv[])
 	 		PrintImageInfo(image_info);
 	 		ROW = image_info.width;
 	 		COL = image_info.height;
-	 		img = 	img_to_1d_array("temporary.pgm");
+	 		img = img_to_1d_array("temporary.pgm");
 	 		imgplus = img_to_2d_array(img);
 	   		import_noise(imgplus);
 		}
@@ -212,30 +205,28 @@ char* img_to_1d_array(char filename[])
 	char* img = allocate_1d_arr(ROW*COL);
 	FILE* imagein = fopen(filename,"rb+");
 	if(imagein == NULL)
-    {
-    	printf("Error in file !\n");
+    	{
+    		printf("Error in file !\n");
 		exit(0);		
 	}
 	unsigned char letter;
 	int count = 0;
-	
 	if(img == NULL)
 	 return 0;
-	
-	 if(imagein==NULL)
-	  {
+	if(imagein==NULL)
+	{
 	    perror("Error");
 	    exit(1);
-	  }
-	  else
-	  {
+	}
+	else
+	{
 	  	while(!feof(imagein))
 		{
 			fread(&letter, sizeof(char), 1, imagein);
 			img[count] = letter;
 			count++;
 		}
-	  }
+	}
 	  fclose(imagein);
 	  return img;
 }
@@ -248,17 +239,15 @@ char** img_to_2d_array(char* img)
 	FILE* imageout = fopen("exampleout.pgm","wb+");
 	if(imageout == NULL)
     	{
-    	printf("Error in file !\n");
+    		printf("Error in file !\n");
 		exit(0);		
 	}
 	int img_counter = 0;
-	  if(imgplus == NULL)
-	  {
+	if(imgplus == NULL)
+	{
 	    perror("Error");
 	    exit(1);
-	  }
-
-
+	}
 	 for(i=0;i<ROW;i++)
 	 {
 	 	for(j=0;j<COL;j++)
@@ -267,14 +256,10 @@ char** img_to_2d_array(char* img)
 	 		img_counter = img_counter +1;
 	 		tmp = imgplus[i][j];
 	 		fwrite(&tmp, sizeof(char), 1, imageout);
-	 		
-		 }
-		 
+		 } 
 	 }
-	 
 fclose(imageout);
 return imgplus;
-
 }
 
 int valid_command(char comm[])
@@ -296,35 +281,23 @@ int valid_command(char comm[])
 			return 0;
 		}
 	}
-		
-	
 	if(counter_alpha == 3)
 	return 1;
-	
-	
 }
 char** allocate_2d_img()
 {
 	char **img_arr;
-	
 	int i;
 	img_arr = (char**)malloc(ROW*sizeof(char*));
-	
 	for(i=0;i<ROW;i++)
 		img_arr[i] = (char*)malloc(COL*sizeof(char));
-		
-		
 	return img_arr;
-	
-	
 }
 
 char* allocate_1d_arr(int size)
 {
 	char* img;
 	img = (char*)malloc(sizeof(char)*size);
-	
-	
 	return img;
 }
 
@@ -343,9 +316,7 @@ PGMImage getImgInfo(char filename[])
 	char *line;
 	char chrcter;
 	strcpy(fname,filename);
-	
 	trav = fopen(strcat(fname,end),"rb");
-
 	if(trav == NULL)
 	{
 		printf("File does not exist !!\n");
@@ -483,8 +454,10 @@ void import_noise(char* img[])
 			 
 	}
 	fprintf(noise,"%s\n",image_info.headline);
+	
 	if(strcmp(image_info.comments,"empty")!=0)
 		fprintf(noise,"%s\n",image_info.headline);
+	
 	fprintf(noise,"%d %d\n",image_info.height,image_info.width);
 	fprintf(noise,"%d\n",image_info.grayscale);
 		for(i=0;i<ROW;i++)
@@ -494,12 +467,8 @@ void import_noise(char* img[])
 	 			temp = img[i][j];
 	 			fwrite(&temp, sizeof(char), 1, noise);
 			}
-	 		
-	 		
 	 	}	
-	 
 	 fclose(noise);
-	
 	printf("%d",random_perc);	
 }
 
@@ -528,8 +497,10 @@ void horizontal_reflection(char* img1[ROW])
 	}
 	
 	fprintf(fp_H,"%s\n",image_info.headline);
+	
 	if(strcmp(image_info.comments,"empty")!=0)
 		fprintf(fp_H,"%s\n",image_info.headline);
+	
 	fprintf(fp_H,"%d %d\n",image_info.height,image_info.width);
 	fprintf(fp_H,"%d\n",image_info.grayscale);
 	for(i=0;i<ROW;i++)
@@ -566,14 +537,14 @@ void vertical_reflection(char* img1[ROW])
 			temp = img1[r][l];
 			img1[r][l] = img1[ROW-1-r][l];
 			img1[ROW-1-r][l] = temp;
-			
-
 		}
 	}
 	
 	fprintf(fp_V,"%s\n",image_info.headline);
+	
 	if(strcmp(image_info.comments,"empty")!=0)
 		fprintf(fp_V,"%s\n",image_info.headline);
+	
 	fprintf(fp_V,"%d %d\n",image_info.height,image_info.width);
 	fprintf(fp_V,"%d\n",image_info.grayscale);
 	for(i=0;i<ROW;i++)
@@ -640,8 +611,6 @@ char** rotate_right(char* img[ROW])
 
 void reverseColumns(char* arr[ROW]) 
 { 
-	
-	
 int i,j,k;
 char temp;
     for (i = 0; i < COL; i++) 
@@ -650,8 +619,7 @@ char temp;
         	temp = arr[j][i];
         	arr[j][i]= arr[k][i];
         	arr[k][i] = temp;
-	}
-            
+	} 
 } 
   
 void transpose(char* arr[ROW]) 
@@ -665,24 +633,20 @@ char temp;
         	arr[i][j] = arr[j][i];
         	arr[j][i] = temp;
 	}
-  
 } 
   
 
   
 char** rotate_left(char* arr[ROW]) 
 { 
-	int i,j;
-	char temp;
-	FILE *left_rot;
-	char *name;
-	name = (char*)malloc(strlen(output_name)*sizeof(char));
-	strcpy(name,output_name);
-	
-	
+    int i,j;
+    char temp;
+    FILE *left_rot;
+    char *name;
+    name = (char*)malloc(strlen(output_name)*sizeof(char));
+    strcpy(name,output_name);	
     transpose(arr); 
     reverseColumns(arr); 
-    
     left_rot = fopen(strcat(name,"leftrot.pgm"),"wb+");
     if(left_rot == NULL)
     {
@@ -701,8 +665,7 @@ char** rotate_left(char* arr[ROW])
 	 	{
 	 		temp = arr[i][j];
 	 		fwrite(&temp, sizeof(char), 1, left_rot);
-		}
-		 
+		} 
     }
 	 fclose(left_rot);	
 	 return arr;
