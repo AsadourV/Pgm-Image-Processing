@@ -54,7 +54,8 @@ int valid_scale(int scale)
 char *strremove(char *str, const char *sub) 
 {
     size_t len = strlen(sub);
-    if (len > 0) {
+    if (len > 0) 
+    {
         char *p = str;
         size_t size = 0;
         while ((p = strstr(p, sub)) != NULL) 
@@ -144,7 +145,7 @@ int main(int argc, char* argv[])
 				printf("Image must be quadratic\n");
 		}
 			
-		}
+	}
 		else if(strncmp(argv[1],"-rL",3)==0 && valid_command(argv[1]) == 1)
 		{
 			printf("Correct command\n");
@@ -271,9 +272,9 @@ int valid_command(char comm[])
 	{
 		if (isalpha(comm[i]) || comm[i]=='-') 
 		{
-	    	counter_alpha ++;
-	    	if(counter_alpha > 3 )
-	    	 return 0;
+			counter_alpha ++;
+			if(counter_alpha > 3 )
+			 return 0;
 		}
 		if(isdigit(comm[i]))
 		{
@@ -432,14 +433,11 @@ void import_noise(char* img[])
 		exit(0);		
 	}
 	random_perc = rand()%9 + 1;
-	
 	percentage = (random_perc*ROW*COL)/100;
 	for(i=0;i<percentage;i++)
 	{
-
 		row_rand = rand()%ROW;
 		col_rand = rand()%COL;
-		
 		prbty = rand()%2;
 		if(prbty == 0)
 		{
@@ -448,13 +446,9 @@ void import_noise(char* img[])
 		else
 		{
 			img[row_rand][col_rand] = '0';
-		}
-		
-
-			 
+		}	 
 	}
 	fprintf(noise,"%s\n",image_info.headline);
-	
 	if(strcmp(image_info.comments,"empty")!=0)
 		fprintf(noise,"%s\n",image_info.headline);
 	
@@ -519,7 +513,6 @@ void horizontal_reflection(char* img1[ROW])
 
 void vertical_reflection(char* img1[ROW])
 {
-	
 	int l,r;
 	FILE *fp_V;
 	char temp;
@@ -541,7 +534,6 @@ void vertical_reflection(char* img1[ROW])
 	}
 	
 	fprintf(fp_V,"%s\n",image_info.headline);
-	
 	if(strcmp(image_info.comments,"empty")!=0)
 		fprintf(fp_V,"%s\n",image_info.headline);
 	
@@ -601,12 +593,6 @@ char** rotate_right(char* img[ROW])
 	 fclose(right_rot);
 	 return img_new;
 }
-
-
-
-
-
-
 /****************************************/
 
 void reverseColumns(char* arr[ROW]) 
@@ -624,8 +610,8 @@ char temp;
   
 void transpose(char* arr[ROW]) 
 { 
-int i,j;
-char temp;
+ int i,j;
+ char temp;
     for (i = 0; i < ROW; i++) 
         for (j = i; j < COL; j++) 
         {
@@ -680,6 +666,3 @@ char** free_2d_array(char* arr[])
 	return NULL;
 }
 /****************************************/
-
-
-
